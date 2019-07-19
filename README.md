@@ -23,7 +23,13 @@ cd ts-axios
 ├── package-lock.json
 ├── package.json
 ├── rollup.config.ts // rollup 配置文件
+├── examples  // Node运行测试文件
+├────── webpack.config.js // webpack配置文件
+├────── server.js // server文件
 ├── src // 源码目录
+├────── types // 公用类型定义文件
+├───index.ts // 入口文件
+├───xhr.ts // 发送请求文件
 ├── test // 测试目录
 ├── tools // 发布到 GitHup pages 以及 发布到 npm 的一些配置脚本工具
 ├── tsconfig.json // TypeScript 编译配置文件
