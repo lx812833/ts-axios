@@ -26,8 +26,12 @@ cd ts-axios
 ├── examples  // Node运行测试文件
 ├────── webpack.config.js // webpack配置文件
 ├────── server.js // server文件
+├────── index.html // demo入口文件
 ├── src // 源码目录
 ├────── types // 公用类型定义文件
+├────── helpers // 工具函数、辅助方法
+├──────────── url.ts // 处理请求url参数
+├──────────── util.ts // 工具函数
 ├───index.ts // 入口文件
 ├───xhr.ts // 发送请求文件
 ├── test // 测试目录

@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
-const WebpackConfig = require('./webpack.config')
+const WebpackConfig = require('./webpack.config')  // webpack配置
 
 const app = express()
 const compiler = webpack(WebpackConfig)
@@ -30,6 +30,11 @@ router.get('/simple/get', (req, res) => {
         msg: `hello world`
     })
 })
+
+router.get('/base/get', (req, res) => {
+    res.json(req.query)
+})
+app.use(router)
 
 const port = process.env.PORT || 8080
 module.exports = app.listen(port, () => {
