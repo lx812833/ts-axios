@@ -32,6 +32,7 @@ cd ts-axios
 ├────── helpers // 工具函数、辅助方法
 ├──────────── url.ts // 处理请求url参数
 ├──────────── data.ts // 请求处理body(将参数data转换为JSON字符串)
+├──────────── header.ts // 请求处理header
 ├──────────── util.ts // 工具函数
 ├───index.ts // 入口文件
 ├───xhr.ts // 发送请求文件
