@@ -8,7 +8,7 @@ axios({
         b: 2
     }
 }).then(res => {
-    console.log("返回结果", res)
+    console.log(res)
 })
 
 axios({
@@ -20,5 +20,5 @@ axios({
         d: 4
     }
 }).then(res => {
-    console.log("返回结果", res)
+    console.log(res)
 })
