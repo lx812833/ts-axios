@@ -1,3 +1,6 @@
+import { config } from "shelljs";
+import { request } from "https";
+
 export type Method = 'get' | 'GET' | 'delete' | 'Delete' | 'head' | 'HEAD' | 'options' | 'OPTIONS' | 'post' | 'POST' | 'put' | 'PUT' | 'patch' | 'PATCH'
 
 export interface AxiosRequestConfig {
@@ -7,6 +10,7 @@ export interface AxiosRequestConfig {
     params?: any
     headers?: any
     responseType?: XMLHttpRequestResponseType
+    timeout?: number
 }
 
 export interface AxiosRespons {
@@ -19,3 +23,11 @@ export interface AxiosRespons {
 }
 
 export interface AxiosPromise extends Promise<AxiosRespons> { }
+
+export interface AxiosError extends Error {
+    isAxiosError: boolean
+    config: AxiosRequestConfig
+    code?: string | number
+    request?: any
+    response?: AxiosRespons 
+}

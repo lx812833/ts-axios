@@ -35,6 +35,7 @@ cd ts-axios
 ├──────────── header.ts // 请求处理header
 ├──────────── util.ts // 工具函数
 ├───index.ts // 入口文件
+├───axios.ts // 导出类型定义
 ├───xhr.ts // 发送请求文件
 ├── test // 测试目录
 ├── tools // 发布到 GitHup pages 以及 发布到 npm 的一些配置脚本工具
