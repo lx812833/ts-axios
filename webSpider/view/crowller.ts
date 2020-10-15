@@ -1,71 +1,48 @@
 import superagent from "superagent";
-import cheerio from "cheerio";
 import fs from "fs";
 import path from "path";
+import webAnalyzer from "./analyzer";
 
-interface Course {
-  title: string,
-  count: number | string
-}
-
-interface courseResult {
-  time: number,
-  data: Course[]
-}
-
-interface Content {
-  [propName: number]: Course[]
+export interface Analyzer {
+  analyzer: (html: string, filePath: string) => string
 }
 
 class Crowller {
-  private secret = 'x3b174jsx';
-  private url = `http://www.dell-lee.com/typescript/demo.html?secret=${this.secret}`;
   private filePath = path.resolve(__dirname, "../data/course.json"); // course.json文件路径
 
-  async getRawHtml() {
-    const result = await superagent.get(this.url);
+  async getRawHtml(url: string) {
+    const result = await superagent.get(url);
     return result.text;
   }
 
+  writeFile(fileContent: string) {
+    fs.writeFileSync(this.filePath, fileContent);
+  }
+
   async initSpiderProcess() {
-    const html = await this.getRawHtml();
-    const result = this.getCourseInfo(html);
-    console.log("result", result);
-    const fileContent = this.generateJsonContent(result);
-    fs.writeFileSync(this.filePath, JSON.stringify(fileContent));
+    const html = await this.getRawHtml(this.url);
+    const fileContent = this.analyzer.analyzer(html, this.filePath);
+    this.writeFile(fileContent);
   }
 
-  generateJsonContent(courseInfo: courseResult) {
-    let fileContent: Content = {};
-    if (fs.existsSync(this.filePath)) {
-      // 存在
-      fileContent = JSON.parse(fs.readFileSync(this.filePath, "utf-8"));
-    }
-    fileContent[courseInfo.time] = courseInfo.data; // key-value
-    return fileContent;
-  }
-
-  getCourseInfo(html: string) {
-    const $ = cheerio.load(html);
-    const courseItem = $(".course-item");
-    let courseInfos: Course[] = [];
-    courseItem.map(item => {
-      const desc = $(item).find(".course-desc");
-      const title = desc.eq(0).text();
-      const count = desc.eq(1).text().split("：")[1];
-      courseInfos.push({
-        title,
-        count
-      })
-    })
-    return {
-      time: new Date().getTime(),
-      data: courseInfos
-    }
-  }
-  constructor() {
+  /**
+   * new 一个实例对象后，constructor立即执行
+   * constructor 具有简便写法 后用this调用
+   * (复杂写法:)
+   *  private url: string
+      private analyzer: Analyzer
+      constructor(url_: string, analyzer_: Analyzer) {
+        this.url = url_;
+        this.analyzer = analyzer_;
+        this.initSpiderProcess();
+      }
+   */
+  constructor(private url: string, private analyzer: Analyzer) {
     this.initSpiderProcess();
   }
 }
 
-const crowller = new Crowller();
+const secret = 'x3b174jsx';
+const url = `http://www.dell-lee.com/typescript/demo.html?secret=${secret}`;
+const analyzer = new webAnalyzer();
+new Crowller(url, analyzer);
