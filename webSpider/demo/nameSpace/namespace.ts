@@ -1,4 +1,4 @@
-///<reference path="./components.ts" />
+// /<reference path="./components.ts" />
 
 namespace Home {
   export namespace Worker {

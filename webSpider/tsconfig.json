@@ -5,6 +5,7 @@
   * exclude: ts指定不编译包含哪些文件
   */
   // "include": ["./view/crowller.ts"],
+  "exclude": ["./demo/nameSpace/components.ts", "./demo/nameSpace/namespace.ts"],
   "compilerOptions": {
     /* Basic Options */
     // "incremental": true,                   /* Enable incremental compilation */

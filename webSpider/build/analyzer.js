@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var cheerio_1 = __importDefault(require("cheerio"));
 var fs_1 = __importDefault(require("fs"));
-var webAnalyzer = /** @class */ (function () {
+var webAnalyzer = (function () {
     function webAnalyzer() {
     }
     webAnalyzer.prototype.getCourseInfo = function (html) {
@@ -29,10 +29,9 @@ var webAnalyzer = /** @class */ (function () {
     webAnalyzer.prototype.generateJsonContent = function (courseInfo, filePath) {
         var fileContent = {};
         if (fs_1.default.existsSync(filePath)) {
-            // 存在
             fileContent = JSON.parse(fs_1.default.readFileSync(filePath, "utf-8"));
         }
-        fileContent[courseInfo.time] = courseInfo.data; // key-value
+        fileContent[courseInfo.time] = courseInfo.data;
         return fileContent;
     };
     webAnalyzer.prototype.analyzer = function (html, filePath) {
